@@ -12,6 +12,9 @@ const quizSlice = createSlice({
         setQuestions: (state, action) => {
             state.questions = action.payload;
         },
+        truncateAnswers: (state) => {
+            state.answers = [];
+        },
         setAnswer: (state, action) => {
             const {question,answer} = action.payload;
             const existingQuestionIndex = state.answers.findIndex(a => a.question === action.payload.question);
@@ -26,6 +29,6 @@ const quizSlice = createSlice({
     }
 });
 
-export const { setQuestions, setAnswer, getQuestions } = quizSlice.actions;
+export const { setQuestions, setAnswer, getQuestions, truncateAnswers } = quizSlice.actions;
 
 export default quizSlice.reducer;
