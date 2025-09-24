@@ -1,29 +1,32 @@
 import { useState } from 'react'
-import { Link } from "react-router";
 import './QuizIntro.css'
-
+import { useSelector, useDispatch } from 'react-redux';
+import { setQuestions} from '../app/quizSlice.js';
+import fetchQuestions from '../app/fetchQuestions.js';
+import { useNavigate }  from 'react-router';
 function QuizIntro() {
-  const [selectedCategory, setSelectedCategory] = useState('')
-  const [selectedDifficulty, setSelectedDifficulty] = useState('')
-  const [numberOfQuestions, setNumberOfQuestions] = useState(10)
 
-  const categories = [
-    { id: '', name: 'Any Category' },
-    { id: '9', name: 'General Knowledge' },
-    { id: '17', name: 'Science & Nature' },
-    { id: '18', name: 'Science: Computers' },
-    { id: '21', name: 'Sports' },
-    { id: '22', name: 'Geography' },
-    { id: '23', name: 'History' }
-  ]
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const difficulties = [
-    { value: '', label: 'Any Difficulty' },
-    { value: 'easy', label: 'Easy' },
-    { value: 'medium', label: 'Medium' },
-    { value: 'hard', label: 'Hard' }
-  ]
-
+  const handleStartQuiz = () => {
+    const category = 9; // General Knowledge
+    const difficulty = "easy";
+    const amount = 10; // Number of questions
+    
+    fetchQuestions(category, difficulty, amount)
+      .then(questions => {
+       
+        dispatch(setQuestions(questions));
+        navigate("/quiz");
+    
+      })
+      .catch(error => {
+        
+        alert("Error fetching questions.");
+      });
+    
+  }
   return (
     <div className="quiz-intro-container">
       <div className="quiz-intro-header">
@@ -62,27 +65,12 @@ function QuizIntro() {
         </ul>
       </div>
 
-     
-
-   
-
-
-        
-          <Link 
-            to="/quiz" 
-            state={{ 
-              category: selectedCategory, 
-              difficulty: selectedDifficulty, 
-              amount: numberOfQuestions 
-            }}
-          >
-            <button className="start-quiz-btn">
-               Start Quiz
-            </button>
-          </Link>
-          
-         
-        </div>
+        <button className="start-quiz-btn"
+            onClick={handleStartQuiz}>
+              Start Quiz
+        </button>
+    
+      </div>
     
    
   )
