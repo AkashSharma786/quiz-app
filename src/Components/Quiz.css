@@ -72,18 +72,6 @@
     left: 0;
 }
 
-.question-number{
-    width: 50px;
-    height: 50px;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    border-radius: 50%;
-    background: #3498db;
-    color: #fff;
-    font-size: 1.2rem;
-  
-}
 
 .quiz-container header {
   background-color: #414242;
@@ -160,8 +148,17 @@
   margin-top: 20px;
   width: 80%;
   height: 80vh;
-  border: 2px solid #ddd;
+ 
  
   text-align: center;
   
+}
+.question-button{
+  background-color: #00000000;
+  border: none;
+  cursor: pointer;
+}
+.question-button:hover{
+  background-color: #00000065;
+
 }

@@ -13,7 +13,13 @@ const quizSlice = createSlice({
             state.questions = action.payload;
         },
         setAnswer: (state, action) => {
-            state.answers.push(action.payload);
+            const {question,answer} = action.payload;
+            const existingQuestionIndex = state.answers.findIndex(a => a.question === action.payload.question);
+            if (existingQuestionIndex !== -1) {
+                state.answers[existingQuestionIndex] = action.payload;
+            } else {
+                state.answers.push(action.payload);
+            }
         },
 
         
